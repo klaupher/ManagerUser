@@ -1,6 +1,8 @@
-﻿using ManageUser.Domain.Validators;
+﻿using ManageUser.Core.Exceptions;
+using ManageUser.Domain.Validators;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,7 +54,7 @@ namespace ManageUser.Domain.Entities
                 {
                     _errors.Add(error.ErrorMessage);
                 }
-                throw new Exception($"Alguns campos estão inválidos. Corrija-os: {_errors[0]}");
+                throw new DomainException("Alguns campos estão inválidos. Corrija-os: ", _errors);
             }
 
             return true;

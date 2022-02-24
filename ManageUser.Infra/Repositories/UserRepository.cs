@@ -21,7 +21,7 @@ namespace ManageUser.Infra.Repositories
 
         public async Task<User> GetByEmail(string email)
         {
-            var user = await _context.Users
+            return await _context.Users
                             .Where
                             (
                                 x =>
@@ -30,17 +30,26 @@ namespace ManageUser.Infra.Repositories
                             )
                             .AsNoTracking()
                             .SingleAsync();
-            return user;
         }
 
-        public Task<User> SearchByEmail(string email)
+        public async Task<User> SearchByEmail(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users
+                    .Where(
+                        x => x.Email.ToUpper().Contains(email.ToUpper())
+                    )
+                    .AsNoTracking()
+                    .SingleAsync();
         }
 
-        public Task<User> SearchByName(string email)
+        public async Task<User> SearchByName(string name)
         {
-            throw new NotImplementedException();
+            return await _context.Users
+                     .Where(
+                         x => x.Name.ToUpper().Contains(name.ToUpper())
+                     )
+                     .AsNoTracking()
+                     .SingleAsync();
         }
     }
 }

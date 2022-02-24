@@ -6,7 +6,7 @@ namespace ManageUser.Infra.Interfaces
     {
         Task<User> GetByEmail(string email);
         Task<User> SearchByEmail(string email);
-        Task<User> SearchByName(string email);
+        Task<User> SearchByName(string name);
 
     }
 }

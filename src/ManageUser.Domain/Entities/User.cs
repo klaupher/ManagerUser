@@ -1,23 +1,9 @@
-﻿using ManageUser.Core.Exceptions;
-using ManageUser.Domain.Validators;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ManageUser.Domain.Validators;
 
 namespace ManageUser.Domain.Entities
 {
-    public class User : Base
+    public class User : BaseClass
     {
-        public string? Name { get; private set; }
-        public string? Email { get; private set; }
-        public string? Password { get; private set; }
-
-        protected User()
-        {}
-
         public User(string name, string email, string password)
         {
             Name = name;
@@ -25,9 +11,13 @@ namespace ManageUser.Domain.Entities
             Password = password;
         }
 
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
+
         public void ChangeName(string name)
         {
-            Name = name ;
+            Name = name;
             Validate();
         }
 
@@ -54,7 +44,7 @@ namespace ManageUser.Domain.Entities
                 {
                     _errors.Add(error.ErrorMessage);
                 }
-                throw new DomainException("Alguns campos estão inválidos. Corrija-os: ", _errors);
+                throw new ApplicationException($"Alguns campos estão inválidos. Corrija-os: {string.Join(",", _errors)}");
             }
 
             return true;

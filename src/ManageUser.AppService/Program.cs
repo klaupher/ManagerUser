@@ -1,4 +1,8 @@
+using ManageUser.Domain.Interfaces.Repositories;
+using ManageUser.Domain.Interfaces.Services;
+using ManageUser.Domain.Services;
 using ManageUser.Infra.Context;
+using ManageUser.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +13,9 @@ builder.Services.AddDbContext<ManagerUserContext>(
         options => options.UseSqlServer("name=ConnectionStrings:ManageUserDB"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

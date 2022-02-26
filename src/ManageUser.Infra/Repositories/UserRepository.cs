@@ -1,12 +1,7 @@
 ﻿using ManageUser.Domain.Entities;
+using ManageUser.Domain.Interfaces.Repositories;
 using ManageUser.Infra.Context;
-using ManageUser.Infra.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace ManageUser.Infra.Repositories
 {
@@ -19,37 +14,9 @@ namespace ManageUser.Infra.Repositories
             _context = context;
         }
 
-        public async Task<User> GetByEmail(string email)
+        public Task<IList<User>> FindByPredicateAsync(Expression<Func<User, bool>> entity)
         {
-            return await _context.Users
-                            .Where
-                            (
-                                x =>
-                                x.Email.ToUpper() == email.ToUpper()
-
-                            )
-                            .AsNoTracking()
-                            .SingleAsync();
-        }
-
-        public async Task<User> SearchByEmail(string email)
-        {
-            return await _context.Users
-                    .Where(
-                        x => x.Email.ToUpper().Contains(email.ToUpper())
-                    )
-                    .AsNoTracking()
-                    .SingleAsync();
-        }
-
-        public async Task<User> SearchByName(string name)
-        {
-            return await _context.Users
-                     .Where(
-                         x => x.Name.ToUpper().Contains(name.ToUpper())
-                     )
-                     .AsNoTracking()
-                     .SingleAsync();
+            throw new NotImplementedException();
         }
     }
 }
